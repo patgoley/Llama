@@ -8,8 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		8E15BC961DA9883800025B31 /* Llama.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E15BC8C1DA9883800025B31 /* Llama.framework */; };
-		8E15BC9B1DA9883800025B31 /* LlamaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E15BC9A1DA9883800025B31 /* LlamaTests.swift */; };
 		8E15BC9D1DA9883800025B31 /* Llama.h in Headers */ = {isa = PBXBuildFile; fileRef = 8E15BC8F1DA9883800025B31 /* Llama.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8E15BCA91DA98B0800025B31 /* Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E15BCA81DA98B0800025B31 /* Promise.swift */; };
+		8E15BCAB1DA9902500025B31 /* PromiseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E15BCAA1DA9902500025B31 /* PromiseTests.swift */; };
+		8E15BCAD1DA99A0600025B31 /* Operations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E15BCAC1DA99A0600025B31 /* Operations.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,8 +29,10 @@
 		8E15BC8F1DA9883800025B31 /* Llama.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Llama.h; sourceTree = "<group>"; };
 		8E15BC901DA9883800025B31 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8E15BC951DA9883800025B31 /* LlamaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LlamaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		8E15BC9A1DA9883800025B31 /* LlamaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LlamaTests.swift; sourceTree = "<group>"; };
 		8E15BC9C1DA9883800025B31 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8E15BCA81DA98B0800025B31 /* Promise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Promise.swift; sourceTree = "<group>"; };
+		8E15BCAA1DA9902500025B31 /* PromiseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromiseTests.swift; sourceTree = "<group>"; };
+		8E15BCAC1DA99A0600025B31 /* Operations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operations.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +76,8 @@
 			isa = PBXGroup;
 			children = (
 				8E15BC8F1DA9883800025B31 /* Llama.h */,
+				8E15BCA81DA98B0800025B31 /* Promise.swift */,
+				8E15BCAC1DA99A0600025B31 /* Operations.swift */,
 				8E15BC901DA9883800025B31 /* Info.plist */,
 			);
 			path = Llama;
@@ -80,7 +86,7 @@
 		8E15BC991DA9883800025B31 /* LlamaTests */ = {
 			isa = PBXGroup;
 			children = (
-				8E15BC9A1DA9883800025B31 /* LlamaTests.swift */,
+				8E15BCAA1DA9902500025B31 /* PromiseTests.swift */,
 				8E15BC9C1DA9883800025B31 /* Info.plist */,
 			);
 			path = LlamaTests;
@@ -149,6 +155,7 @@
 					8E15BC8B1DA9883800025B31 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = UNAGDAV49G;
+						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 					};
 					8E15BC941DA9883800025B31 = {
@@ -198,6 +205,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E15BCAD1DA99A0600025B31 /* Operations.swift in Sources */,
+				8E15BCA91DA98B0800025B31 /* Promise.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -205,7 +214,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8E15BC9B1DA9883800025B31 /* LlamaTests.swift in Sources */,
+				8E15BCAB1DA9902500025B31 /* PromiseTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -322,6 +331,7 @@
 		8E15BCA11DA9883800025B31 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = UNAGDAV49G;
@@ -334,6 +344,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.patrickgoley.Llama;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -341,6 +352,7 @@
 		8E15BCA21DA9883800025B31 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = UNAGDAV49G;
@@ -360,6 +372,7 @@
 		8E15BCA41DA9883800025B31 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = UNAGDAV49G;
 				INFOPLIST_FILE = LlamaTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -372,6 +385,7 @@
 		8E15BCA51DA9883800025B31 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = UNAGDAV49G;
 				INFOPLIST_FILE = LlamaTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
