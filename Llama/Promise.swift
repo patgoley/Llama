@@ -9,7 +9,7 @@
 import Foundation
 
 
-final class Promise<T> {
+public final class Promise<T> {
     
     var nextHandler: ((T) -> Void)? = nil {
         
@@ -42,7 +42,7 @@ final class Promise<T> {
         
     }
     
-    init(_ work: (_ resolve: @escaping (T) -> Void, _ reject: @escaping (Error) -> Void) -> Void) {
+    public init(_ work: (_ resolve: @escaping (T) -> Void, _ reject: @escaping (Error) -> Void) -> Void) {
         
         work(self.resolve, self.reject)
     }
@@ -61,7 +61,7 @@ final class Promise<T> {
         errorHandler?(error)
     }
     
-    func then<U>(_ map: @escaping (T) -> U) -> Promise<U> {
+    public func then<U>(_ map: @escaping (T) -> U) -> Promise<U> {
         
         let newPromise = Promise<U>()
         
@@ -75,7 +75,7 @@ final class Promise<T> {
         return newPromise
     }
     
-    func then<U>(_ mapToPromise: @escaping (T) -> Promise<U>) -> Promise<U> {
+    public func then<U>(_ mapToPromise: @escaping (T) -> Promise<U>) -> Promise<U> {
         
         let newPromise = Promise<U>()
         
