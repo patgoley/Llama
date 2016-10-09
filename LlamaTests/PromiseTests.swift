@@ -126,7 +126,9 @@ class PromiseTests: XCTestCase {
     
     func testErrorChaining() {
         
-        let totalPromise = rejectAsync().then { (value: Int) in
+        let totalPromise = rejectAsync().then { (value: Int) -> Promise<Int> in
+            
+            XCTFail()
             
             return Promise<Int>() { resolve, reject in
                 
@@ -158,22 +160,6 @@ class PromiseTests: XCTestCase {
         let expt = expectation(description: "chained error")
         
         totalPromise.errorHandler = { err in
-            
-            expt.fulfill()
-        }
-        
-        waitForExpectations(timeout: 0.2, handler: nil)
-    }
-    
-    func testPromiseAll() {
-        
-        let promise = Promise.all(resolveImmediately(10), resolveAsync(100))
-        
-        let expt = expectation(description: "promise all")
-        
-        promise.nextHandler = { value in
-            
-            XCTAssert(value == [10, 100])
             
             expt.fulfill()
         }

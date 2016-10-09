@@ -8,14 +8,34 @@
 
 import Foundation
 
+enum State<T> {
+    
+    case pending, resolved(T), rejected(Error)
+    
+    var isPending: Bool {
+        
+        if case .pending = self {
+            
+            return true
+        }
+        
+        return false
+    }
+}
+
 
 public final class Promise<T> {
+    
+    private(set) var state: State<T> = .pending {
+        
+        willSet { precondition(state.isPending) }
+    }
     
     var nextHandler: ((T) -> Void)? = nil {
         
         didSet {
             
-            if let val = self.settledValue {
+            if case .resolved(let val) = state {
                 
                 nextHandler?(val)
             }
@@ -26,21 +46,14 @@ public final class Promise<T> {
         
         didSet {
             
-            if let err = self.settledError {
+            if case .rejected(let err) = state {
                 
                 errorHandler?(err)
             }
         }
     }
     
-    var settledValue: T? = nil
-    
-    var settledError: Error? = nil
-    
-    init() {
-        
-        
-    }
+    init() { }
     
     public init(_ work: (_ resolve: @escaping (T) -> Void, _ reject: @escaping (Error) -> Void) -> Void) {
         
@@ -49,14 +62,14 @@ public final class Promise<T> {
     
     func resolve(value: T) {
         
-        self.settledValue = value
+        state = .resolved(value)
         
         nextHandler?(value)
     }
     
     func reject(_ error: Error) {
         
-        self.settledError = error
+        state = .rejected(error)
         
         errorHandler?(error)
     }
@@ -65,7 +78,7 @@ public final class Promise<T> {
         
         let newPromise = Promise<U>()
         
-        self.nextHandler = { (myResult: T) in
+        nextHandler = { (myResult: T) in
             
             let mapped = map(myResult)
             
@@ -79,7 +92,7 @@ public final class Promise<T> {
         
         let newPromise = Promise<U>()
         
-        self.nextHandler = { (myResult: T) in
+        nextHandler = { (myResult: T) in
             
             let internalPromise = mapToPromise(myResult)
             
@@ -91,8 +104,23 @@ public final class Promise<T> {
             internalPromise.errorHandler = newPromise.reject
         }
         
-        self.errorHandler = newPromise.reject
+        errorHandler = newPromise.reject
+        
+        return newPromise
+    }
+    
+    public func `catch`<U>(_ map: @escaping (Error) -> U) -> Promise<U> {
+        
+        let newPromise = Promise<U>()
+        
+        errorHandler = { (error: Error) in
+         
+            let mapped = map(error)
+            
+            newPromise.resolve(value: mapped)
+        }
         
         return newPromise
     }
 }
+

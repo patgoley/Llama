@@ -10,9 +10,32 @@ import Foundation
 
 
 
-extension Promise {
+public extension Promise {
+    
+    static func resolve(_ value: T) -> Promise<T> {
+        
+        let promise = Promise<T>()
+        
+        promise.resolve(value: value)
+        
+        return promise
+    }
+    
+    static func reject(_ error: Error) -> Promise<T> {
+        
+        let promise = Promise<T>()
+        
+        promise.reject(error)
+        
+        return promise
+    }
     
     static func all(_ promises: Promise<T>...) -> Promise<[T]> {
+        
+        return all(promises)
+    }
+    
+    static func all(_ promises: [Promise<T>]) -> Promise<[T]> {
         
         let newPromise = Promise<[T]>()
         
@@ -23,7 +46,7 @@ extension Promise {
         promises.forEach { promise in
             
             group.enter()
-         
+            
             promise.nextHandler = { value in
                 
                 values.append(value)
@@ -33,7 +56,12 @@ extension Promise {
             
             promise.errorHandler = { error in
                 
-                newPromise.reject(error)
+                if newPromise.state.isPending {
+                    
+                    newPromise.reject(error)
+                }
+                
+                group.leave()
             }
         }
         
