@@ -1,5 +1,5 @@
 //
-//  PromiseOperationsTests.swift
+//  PromiseExtensionsTests.swift
 //  Llama
 //
 //  Created by Patrick Goley on 10/8/16.
@@ -20,6 +20,20 @@ class PromiseOperationsTests: XCTestCase {
         promise.nextHandler = { value in
             
             XCTAssert(value == [10, 100])
+            
+            expt.fulfill()
+        }
+        
+        waitForExpectations(timeout: 0.2, handler: nil)
+    }
+    
+    func testPromiseAllWithRejection() {
+        
+        let promise = Promise.all(resolveAsync(10), resolveAsync(100), rejectImmediately())
+        
+        let expt = expectation(description: "promise all rejection")
+        
+        promise.errorHandler = { err in
             
             expt.fulfill()
         }

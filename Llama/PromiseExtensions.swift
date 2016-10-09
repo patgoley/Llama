@@ -1,5 +1,5 @@
 //
-//  Operations.swift
+//  PromiseExtensions.swift
 //  Llama
 //
 //  Created by Patrick Goley on 10/8/16.
@@ -12,22 +12,18 @@ import Foundation
 
 public extension Promise {
     
-    static func resolve(_ value: T) -> Promise<T> {
+    convenience init(resolve value: T) {
         
-        let promise = Promise<T>()
+        self.init()
         
-        promise.resolve(value: value)
-        
-        return promise
+        resolve(value)
     }
     
-    static func reject(_ error: Error) -> Promise<T> {
+    convenience init(reject error: Error) {
         
-        let promise = Promise<T>()
+        self.init()
         
-        promise.reject(error)
-        
-        return promise
+        reject(error)
     }
     
     static func all(_ promises: Promise<T>...) -> Promise<[T]> {
@@ -39,9 +35,9 @@ public extension Promise {
         
         let newPromise = Promise<[T]>()
         
-        var values = [T]()
-        
         let group = DispatchGroup()
+        
+        var values = [T]()
         
         promises.forEach { promise in
             
@@ -49,6 +45,7 @@ public extension Promise {
             
             promise.nextHandler = { value in
                 
+                //FIXME: this needs to be made thread safe
                 values.append(value)
                 
                 group.leave()
@@ -67,7 +64,10 @@ public extension Promise {
         
         group.notify(queue: DispatchQueue.main) {
             
-            newPromise.resolve(value: values)
+            if newPromise.state.isPending {
+                
+                newPromise.resolve(values)
+            }
         }
         
         return newPromise
