@@ -12,7 +12,7 @@ import Foundation
 
 func resolveImmediately<T>(_ value: T) -> Promise<T> {
     
-    return Promise() { resolve in
+    return Promise { resolve in
         
         resolve(value)
     }
@@ -20,7 +20,7 @@ func resolveImmediately<T>(_ value: T) -> Promise<T> {
 
 func resolveAsync(_ value: Int) -> Promise<Int> {
     
-    return Promise() { resolve in
+    return Promise { resolve in
         
         DispatchQueue.main.async {
             
@@ -36,7 +36,7 @@ enum TestError: Error {
 
 func rejectImmediately(_ err: Error = TestError.Default) -> Promise<Int> {
     
-    return Promise() { resolve in
+    return Promise { resolve in
         
         throw err
     }
@@ -44,7 +44,7 @@ func rejectImmediately(_ err: Error = TestError.Default) -> Promise<Int> {
 
 func rejectAsync(_ err: Error = TestError.Default) -> Promise<Int> {
     
-    return Promise() { resolve, reject in
+    return Promise { resolve, reject in
         
         DispatchQueue.main.async {
             

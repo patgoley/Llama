@@ -14,6 +14,7 @@
 		8E15BCAD1DA99A0600025B31 /* PromiseExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E15BCAC1DA99A0600025B31 /* PromiseExtensions.swift */; };
 		8E15BCAF1DA9AC7300025B31 /* PromiseExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E15BCAE1DA9AC7300025B31 /* PromiseExtensionsTests.swift */; };
 		8E2315EE1DA9DC9000D24FEC /* TestMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E2315ED1DA9DC9000D24FEC /* TestMocks.swift */; };
+		8E2315F21DAA8A4100D24FEC /* PerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E2315F11DAA8A4100D24FEC /* PerformanceTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +38,7 @@
 		8E15BCAC1DA99A0600025B31 /* PromiseExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromiseExtensions.swift; sourceTree = "<group>"; };
 		8E15BCAE1DA9AC7300025B31 /* PromiseExtensionsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromiseExtensionsTests.swift; sourceTree = "<group>"; };
 		8E2315ED1DA9DC9000D24FEC /* TestMocks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestMocks.swift; sourceTree = "<group>"; };
+		8E2315F11DAA8A4100D24FEC /* PerformanceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformanceTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +95,7 @@
 				8E15BCAA1DA9902500025B31 /* PromiseTests.swift */,
 				8E2315ED1DA9DC9000D24FEC /* TestMocks.swift */,
 				8E15BCAE1DA9AC7300025B31 /* PromiseExtensionsTests.swift */,
+				8E2315F11DAA8A4100D24FEC /* PerformanceTests.swift */,
 				8E15BC9C1DA9883800025B31 /* Info.plist */,
 			);
 			path = LlamaTests;
@@ -222,6 +225,7 @@
 			files = (
 				8E2315EE1DA9DC9000D24FEC /* TestMocks.swift in Sources */,
 				8E15BCAB1DA9902500025B31 /* PromiseTests.swift in Sources */,
+				8E2315F21DAA8A4100D24FEC /* PerformanceTests.swift in Sources */,
 				8E15BCAF1DA9AC7300025B31 /* PromiseExtensionsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

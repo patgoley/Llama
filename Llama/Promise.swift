@@ -26,10 +26,32 @@ public enum State<T> {
 
 public final class Promise<T> {
     
-    private(set) var state: State<T> = .pending {
+    private(set) var state: State<T> {
         
-        willSet { precondition(state.isPending) }
+        set {
+            
+            queue.sync {
+                
+                precondition(_state.isPending)
+                
+                _state = newValue
+            }
+        }
+        
+        get {
+            
+            var currentState: State<T>!
+            
+            queue.sync {
+                
+                currentState = _state
+            }
+            
+            return currentState
+        }
     }
+    
+    private var _state: State<T> = .pending
     
     var nextHandler: ((T) -> Void)? = nil {
         
@@ -52,6 +74,8 @@ public final class Promise<T> {
             }
         }
     }
+    
+    private let queue = DispatchQueue(label: "llama.promise.state", attributes: .concurrent)
     
     init() { }
     
