@@ -77,14 +77,20 @@ public final class Promise<T> {
     
     private let queue = DispatchQueue(label: "llama.promise.state", attributes: .concurrent)
     
+    private var retainCycle: Promise<T>?
+    
     init() { }
     
     public init(_ work: (_ resolve: @escaping (T) -> Void, _ reject: @escaping (Error) -> Void) -> Void) {
+        
+        retainCycle = self
         
         work(self.resolve, self.reject)
     }
     
     public init(_ work: (_ resolve: @escaping (T) -> Void) throws -> Void) {
+        
+        retainCycle = self
         
         do {
             
@@ -101,6 +107,8 @@ public final class Promise<T> {
         state = .resolved(value)
         
         nextHandler?(value)
+        
+        dispose()
     }
     
     func reject(_ error: Error) {
@@ -108,6 +116,15 @@ public final class Promise<T> {
         state = .rejected(error)
         
         errorHandler?(error)
+        
+        dispose()
+    }
+    
+    private func dispose() {
+        
+        nextHandler = nil
+        errorHandler = nil
+        retainCycle = nil
     }
     
     public func then<U>(_ map: @escaping (T) throws -> U) -> Promise<U> {
