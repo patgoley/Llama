@@ -166,5 +166,32 @@ class PromiseTests: XCTestCase {
         
         waitForExpectations(timeout: 0.2, handler: nil)
     }
+    
+    func testCatchThenPromise() {
+        
+        let firstExpt = expectation(description: "first promise")
+        
+        let totalPromise = resolveAsync(8).then { (value: Int) -> Promise<Int> in
+            
+            firstExpt.fulfill()
+            
+            return rejectAsync()
+            
+        }.catch { (err: Error) -> Int in
+                
+            return 2
+        }
+        
+        let expt = expectation(description: "chained error")
+        
+        totalPromise.nextHandler = { value in
+            
+            XCTAssert(value == 2)
+            
+            expt.fulfill()
+        }
+        
+        waitForExpectations(timeout: 0.2, handler: nil)
+    }
 }
 

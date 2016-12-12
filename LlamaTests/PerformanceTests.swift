@@ -21,7 +21,7 @@ class PerformanceTests: XCTestCase {
             
             let promise = Promise<Int>()
             
-            var state = promise.state
+            var _ = promise.state
             
             promise.resolve(11)
             
